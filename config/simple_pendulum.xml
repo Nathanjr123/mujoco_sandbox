@@ -1,0 +1,21 @@
+﻿<mujoco model="simple_pendulum">
+<!-- We increased the timestep to 10ms (0.01) and kept RK4 -->
+<option gravity="0 0 -9.81" timestep="0.01" integrator="RK4"/>    
+    <worldbody>
+        <light diffuse=".5 .5 .5" pos="0 0 3" dir="0 0 -1"/>
+        <geom type="plane" size="2 2 0.1" rgba=".9 .9 .9 1"/>
+        
+        <body name="arm" pos="0 0 1.5">
+<!-- Changed damping from 0.1 to 0 -->
+            <joint name="prop_joint" type="hinge" axis="0 1 0" damping="0"/>            <geom type="cylinder" size="0.03 0.3" rgba="0 .7 0 1" mass="1"/>
+            
+            <body name="weight" pos="0 0 -0.3">
+                <geom type="sphere" size="0.1" rgba="0.7 0 0 1" mass="5"/>
+            </body>
+        </body>
+    </worldbody>
+
+    <actuator>
+        <motor name="joint_motor" joint="prop_joint" gear="5000"/>
+    </actuator>
+</mujoco>
